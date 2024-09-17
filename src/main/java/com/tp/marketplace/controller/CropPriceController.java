@@ -52,8 +52,8 @@ public class CropPriceController {
             @PathVariable Long marketplaceId,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestBody List<CropPriceDTO> cropPriceDTOs) {
-
+    	System.out.println("resquse is hiting in the saceCropPrice Controller");
         cropPriceService.saveCropPrices(marketplaceId, date, cropPriceDTOs);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

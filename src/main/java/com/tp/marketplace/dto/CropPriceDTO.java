@@ -87,5 +87,12 @@ public class CropPriceDTO {
 	public void setPriceLowest(Float priceLowest) {
 		this.priceLowest = priceLowest;
 	}
+
+	@Override
+	public String toString() {
+		return "CropPriceDTO [priceId=" + priceId + ", cropId=" + cropId + ", marketplaceId=" + marketplaceId
+				+ ", price=" + price + ", priceHighest=" + priceHighest + ", priceLowest=" + priceLowest + ", date="
+				+ date + "]";
+	}
     
 }

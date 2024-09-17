@@ -42,7 +42,7 @@ public class CropPriceServiceImpl implements CropPriceService {
 			Crop crop = c.getCrop();
 			Marketplace marketplace = c.getMarketplace();
 			cropPriceWithName.add(
-					new CropPriceWithNameDTO(crop.getCropName(), marketplace.getLocation(), c.getPrice(), c.getDate()));
+					new CropPriceWithNameDTO(crop.getCropName(), marketplace.getLocation(), c.getPrice(), c.getDate(),c.getPriceHighest(),c.getPriceLowest()));
 		}
 
 		return cropPriceWithName;
@@ -58,7 +58,7 @@ List<CropPriceWithNameDTO> cropPriceWithName = new ArrayList<>();
 			Crop crop = c.getCrop();
 			Marketplace marketplace = c.getMarketplace();
 			cropPriceWithName.add(
-					new CropPriceWithNameDTO(crop.getCropName(), marketplace.getLocation(), c.getPrice(), c.getDate()));
+					new CropPriceWithNameDTO(crop.getCropName(), marketplace.getLocation(), c.getPrice(), c.getDate(),c.getPriceHighest(),c.getPriceLowest()));
 		}
 		return cropPriceWithName;
 	}
@@ -68,10 +68,14 @@ List<CropPriceWithNameDTO> cropPriceWithName = new ArrayList<>();
 	@Override
 	public void saveCropPrices(Long marketplaceId, LocalDate date, List<CropPriceDTO> cropPriceDTOs) {
 		// Fetch the marketplace entity by marketplaceId
+		System.out.println("inside a saveCropPrice Service");
 		Marketplace marketplace = marketplaceRepository.findById(marketplaceId)
 				.orElseThrow(() -> new RuntimeException("Marketplace not found"));
-
-		
+		System.out.println("inside a saveCropPrice Service after finding the market place");
+		for(CropPriceDTO cpd: cropPriceDTOs) {
+			System.out.println(cpd.getPrice());
+		}
+		System.out.println("length of the croppriceDTo "+cropPriceDTOs.size());
 		// Map each CropPriceDTO to a CropPrice entity, set the marketplace and date
 		List<CropPrice> cropPrices = cropPriceDTOs.stream().map(dto -> {
 			CropPrice cropPrice = modelMapper.map(dto, CropPrice.class);
@@ -80,6 +84,7 @@ List<CropPriceWithNameDTO> cropPriceWithName = new ArrayList<>();
 			 cropPrice.setPriceId(null);
 			return cropPrice;
 		}).collect(Collectors.toList());
+		
 		// Save the list of crop prices
 		cropPriceRepository.saveAll(cropPrices);
 	}

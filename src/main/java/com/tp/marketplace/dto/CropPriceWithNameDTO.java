@@ -7,7 +7,8 @@ public class CropPriceWithNameDTO {
 	    private String marketplaceName;
 	    private Float price;
 	    private LocalDate date;
-
+	    private Float priceHighest;
+	    private Float priceLowest;
 	    // Constructors, getters, and setters
 
 	    public CropPriceWithNameDTO(String cropName, String marketplaceName, Float price, LocalDate date) {
@@ -15,6 +16,14 @@ public class CropPriceWithNameDTO {
 	        this.marketplaceName = marketplaceName;
 	        this.price = price;
 	        this.date = date;
+	    }
+	    public CropPriceWithNameDTO(String cropName, String marketplaceName, Float price, LocalDate date,Float priceHighest,Float priceLowest) {
+	        this.cropName = cropName;
+	        this.marketplaceName = marketplaceName;
+	        this.price = price;
+	        this.date = date;
+	        this.priceHighest = priceHighest;
+	        this.priceLowest = priceLowest;
 	    }
 
 		public String getCropName() {
@@ -47,6 +56,22 @@ public class CropPriceWithNameDTO {
 
 		public void setDate(LocalDate date) {
 			this.date = date;
+		}
+
+		public Float getPriceHighest() {
+			return priceHighest;
+		}
+
+		public void setPriceHighest(Float priceHighest) {
+			this.priceHighest = priceHighest;
+		}
+
+		public Float getPriceLowest() {
+			return priceLowest;
+		}
+
+		public void setPriceLowest(Float priceLowest) {
+			this.priceLowest = priceLowest;
 		}
 	    
     
