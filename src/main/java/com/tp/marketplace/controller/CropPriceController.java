@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.marketplace.dto.CropPriceDTO;
 import com.tp.marketplace.dto.CropPriceWithNameDTO;
+import com.tp.marketplace.exception.TpCropPriceException;
 import com.tp.marketplace.service.CropPriceService;
 
 @RestController
@@ -26,7 +28,8 @@ public class CropPriceController {
     @Autowired
     private CropPriceService cropPriceService;
 
-    // Existing endpoints...
+    @Autowired
+    private Environment enviroment;
 
     // Get all marketplace prices for a specific crop on a given date
     @GetMapping("/by-crop/{cropId}/on-date/{date}")
@@ -46,14 +49,16 @@ public class CropPriceController {
          return ResponseEntity.ok(cropPrices);
     }
     
-    
     @PostMapping("/save/{marketplaceId}/on-date/{date}")
-    public ResponseEntity<Void> saveCropPrices(
+    public ResponseEntity<String> saveCropPrices(
             @PathVariable Long marketplaceId,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestBody List<CropPriceDTO> cropPriceDTOs) {
-    	System.out.println("resquse is hiting in the saceCropPrice Controller");
-        cropPriceService.saveCropPrices(marketplaceId, date, cropPriceDTOs);
-        return new ResponseEntity<>(HttpStatus.OK);
+            @RequestBody List<CropPriceDTO> cropPriceDTOs) throws TpCropPriceException{
+    	
+    		 cropPriceService.saveCropPrices(marketplaceId, date, cropPriceDTOs);
+    	        String successMessage = enviroment.getProperty("API.INSERT_SUCCESS");
+    	        return new ResponseEntity<>(successMessage, HttpStatus.OK);
+    	
+       
     }
 }

@@ -1,6 +1,7 @@
 package com.tp.marketplace.service;
 
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tp.marketplace.dto.MarketplaceDTO;
+import com.tp.marketplace.entity.Crop;
 import com.tp.marketplace.entity.Marketplace;
 import com.tp.marketplace.repository.MarketplaceRepository;
 
@@ -29,7 +31,10 @@ public class MarketplaceServiceImpl implements MarketplaceService {
 		// TODO Auto-generated method stub
 		List<Marketplace> marketPlaces= marketplaceRepository.findAll();
 //		Integer marketplaceId, String marketplaceName, String location
-		List<MarketplaceDTO> marketPlaceDTOList = marketPlaces.stream().map(marketPlace -> convertToDTO(marketPlace)).collect(Collectors.toList());
+		List<Marketplace> sortedMarketPlaces = marketPlaces.stream()
+                .sorted(Comparator.comparing(marketPlace -> marketPlace.getMarketplaceId()))  // Sort by Crop's 'id' property
+                .collect(Collectors.toList());
+		List<MarketplaceDTO> marketPlaceDTOList = sortedMarketPlaces.stream().map(marketPlace -> convertToDTO(marketPlace)).collect(Collectors.toList());
 		return marketPlaceDTOList;
 	}
 

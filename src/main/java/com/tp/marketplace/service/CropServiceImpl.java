@@ -1,5 +1,6 @@
 package com.tp.marketplace.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +28,16 @@ public class CropServiceImpl implements CropService {
 	@Override
 	public List<CropDTO> findAllCrop() {
 		List<Crop> findAll = cropRepository.findAll();
-		List<CropDTO> allCrop = findAll.stream().map(c -> convertToDTO(c)).collect(Collectors.toList());
+		 List<Crop> sortedCrops = findAll.stream()
+                 .sorted(Comparator.comparing(crop -> crop.getCropId()))  // Sort by Crop's 'id' property
+                 .collect(Collectors.toList());
+		List<CropDTO> allCrop = sortedCrops.stream().map(c -> convertToDTO(c)).collect(Collectors.toList());
 		return allCrop;
 	}
+	
+	
+	
+	
 	//Save crop values based on the marketplace and date
 	@Override
 	public CropDTO saveCropValue(CropDTO cropDTO) {

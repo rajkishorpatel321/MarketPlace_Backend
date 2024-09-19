@@ -3,7 +3,10 @@ package com.tp.marketplace.dto;
 import java.time.LocalDate;
 
 public class CropPriceWithNameDTO {
-	 private String cropName;
+	    private int cropId;
+	
+
+		private String cropName;
 	    private String marketplaceName;
 	    private Float price;
 	    private LocalDate date;
@@ -17,15 +20,22 @@ public class CropPriceWithNameDTO {
 	        this.price = price;
 	        this.date = date;
 	    }
-	    public CropPriceWithNameDTO(String cropName, String marketplaceName, Float price, LocalDate date,Float priceHighest,Float priceLowest) {
-	        this.cropName = cropName;
+	    public CropPriceWithNameDTO(int cropId,String cropName, String marketplaceName,
+	    		Float price, LocalDate date,Float priceHighest,Float priceLowest) {
+	        this.cropId=cropId;
+	    	this.cropName = cropName;
 	        this.marketplaceName = marketplaceName;
 	        this.price = price;
 	        this.date = date;
 	        this.priceHighest = priceHighest;
 	        this.priceLowest = priceLowest;
 	    }
-
+		public int getCropId() {
+			return cropId;
+		}
+		public void setCropId(int cropId) {
+			this.cropId = cropId;
+		}
 		public String getCropName() {
 			return cropName;
 		}
