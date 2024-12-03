@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allows CORS for all endpoints
-                .allowedOrigins(environment.getProperty("Frontent.server.request"),"http://localhost:3001","https://www.krshisathinow.xyz","https://krshisathinow.xyz","https://www.krshisathinow.xyz/") // Allow the React app's origin
+                .allowedOrigins(environment.getProperty("Frontent.server.request"),"http://localhost:3001","https://clever-rolypoly-ba2370.netlify.app/","https://clever-rolypoly-ba2370.netlify.app","https://www.krshisathinow.xyz/") // Allow the React app's origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow these HTTP methods
                 .allowedHeaders("*")
 		.allowCredentials(true); // Allow all headers
