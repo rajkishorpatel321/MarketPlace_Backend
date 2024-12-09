@@ -58,7 +58,5 @@ public class CropPriceController {
     		 cropPriceService.saveCropPrices(marketplaceId, date, cropPriceDTOs);
     	        String successMessage = enviroment.getProperty("API.INSERT_SUCCESS");
     	        return new ResponseEntity<>(successMessage, HttpStatus.OK);
-    	
-       
     }
 }
