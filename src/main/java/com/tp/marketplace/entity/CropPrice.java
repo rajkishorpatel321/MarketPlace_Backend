@@ -28,7 +28,7 @@ public class CropPrice {
     @JoinColumn(name = "marketplace_id", nullable = false)
     private Marketplace marketplace;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = true)
     private Float price;
     
     @Column(name = "price_highest", nullable = true)
