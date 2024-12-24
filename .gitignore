@@ -1,6 +1,8 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
+!target/ # Allow the target folder to be included in the repository
+
+# Keep ignoring other files/folders
+.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
